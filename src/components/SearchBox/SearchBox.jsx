@@ -17,6 +17,7 @@ const SearchBox = () => {
         Find contact by name
         <input
           className={s.searchInput}
+   
           type="text"
           value={filter}
           onChange={handleSearchUser}
