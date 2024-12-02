@@ -1,17 +1,30 @@
-import React, {useState} from 'react';
+import { useSelector } from 'react-redux';
+import { selectContacts } from '../../redux/contactsSlice.js';
+import { selectNameFilter } from '../../redux/filtersSlice.js';
 import s from './ContactList.module.css';
-import Contact from '../Contact/Contact.jsx';
+import Contact from '../ContactList/ContactList';
 
-const ContactList = ({ userContact, handleDeleteContact }) => {
+const ContactList = () => {
+    const contacts = useSelector(selectContacts);
+    console.log('Contacts:', contacts);
+
+
+    const filter = useSelector(selectNameFilter);
+    console.log('Filter:', filter);
+    const visibleContacts = contacts.filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()));
+    console.log('Visible Contacts:', visibleContacts);
     
-    const createContact = userContact.map(user => (
+    
+         
        
-          <Contact user={user} handleDeleteContact={handleDeleteContact} key={user.id}/>
-       
-      ));
+    
       return (
         <div>
-          <ul className={s.contactList}>{createContact}</ul>
+          <ul className={s.contactList}>
+            {visibleContacts.map(({id, name,number}) => (
+              <Contact key={id} id={id} name={name} number={number} />
+            ))}
+          </ul>
         </div>
       );
     };
