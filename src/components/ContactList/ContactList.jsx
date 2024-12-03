@@ -20,6 +20,7 @@ const ContactList = () => {
     
       return (
         <div>
+           {visibleContacts.length === 0 && <p>No contacts found</p>}
           <ul className={s.contactList}>
             {visibleContacts.map(({id, name, number}) => (
               <Contact key={id} id={id} name={name} number={number} />
